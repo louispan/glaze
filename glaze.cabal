@@ -1,6 +1,6 @@
 name:                glaze
 version:             0.2.0.0
-synopsis:            Framework for rendering things (or list of things, or things that contain things) with metadata/headers and values
+synopsis:            Framework for rendering things with metadata/headers and values
 description:         Please see README.md
 homepage:            https://github.com/louispan/glaze#readme
 license:             BSD3
