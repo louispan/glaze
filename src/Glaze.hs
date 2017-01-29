@@ -6,6 +6,7 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TemplateHaskell #-}
 
+-- | Framework for rendering things (or list of things, or things that contain things) that have metadata/header information as well as values.
 module Glaze where
 
 import Control.Lens
@@ -18,6 +19,7 @@ data Glaze a r = Glaze
     { glazeRenderedMeta :: r
     , glazeValueRenderer :: a -> r
     } deriving Functor
+
 makeFields ''Glaze
 
 instance Applicative (Glaze a) where
