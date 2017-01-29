@@ -2,7 +2,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE Rank2Types #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TemplateHaskell #-}
 
@@ -20,7 +19,23 @@ data Glaze a r = Glaze
     , glazeValueRenderer :: a -> r
     } deriving Functor
 
-makeFields ''Glaze
+-- makeFields ''Glaze
+-- Manually pasting the splices to get around haddock bug
+class HasRenderedMeta s a | s -> a where
+  renderedMeta :: Lens' s a
+
+instance HasRenderedMeta (Glaze a r) r where
+  {-# INLINE renderedMeta #-}
+  renderedMeta f (Glaze x1 x2)
+    = fmap (\y1 -> Glaze y1 x2) (f x1)
+
+class HasValueRenderer s a | s -> a where
+  valueRenderer :: Lens' s a
+
+instance HasValueRenderer (Glaze a r) (a -> r) where
+  {-# INLINE valueRenderer #-}
+  valueRenderer f (Glaze x1 x2)
+    = fmap (\y1 -> Glaze x1 y1) (f x2)
 
 instance Applicative (Glaze a) where
     pure a = Glaze a (const a)
