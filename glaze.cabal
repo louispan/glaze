@@ -1,5 +1,5 @@
 name:                glaze
-version:             0.3.0.0
+version:             0.3.0.1
 synopsis:            Framework for rendering things with metadata/headers and values
 description:         Please see README.md
 homepage:            https://github.com/louispan/glaze#readme
